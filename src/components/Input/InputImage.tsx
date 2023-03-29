@@ -37,7 +37,9 @@ export function InputImage({ nameLayer, id }: any) {
       toast.loading("loading images!", { duration: 500 });
       setImgs(response.data);
     });
-  }, [nameLayer]);
+  }, [nameLayer, id]);
+
+  console.log(imgs)
 
   return (
     <div className="w-full h-[33rem] overflow-x-scroll scrollbar-thin scrollbar-thumb-brand-scroll scrollbar-track-rounded-lg scrollbar-thumb-rounded-lg px-4">
@@ -56,7 +58,7 @@ export function InputImage({ nameLayer, id }: any) {
         />
       </label>
       <div className="h-[28rem] w-full grid grid-cols-3 grid-flow-row gap-4 py-4">
-        {RenderPhotos(imgs)}
+      {RenderPhotos(imgs)}
       </div>
     </div>
   );

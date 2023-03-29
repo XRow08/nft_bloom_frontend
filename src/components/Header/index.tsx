@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Button } from "../Button";
 import { Wallet } from "../Icon/wallet";
+import Image from "next/image";
 
 export function Header() {
   return (
@@ -14,7 +15,13 @@ export function Header() {
             Partners
           </Link>
           <Link href={"/"} className="w-1/5 mx-4">
-            <img src="/logo-nftbloom.png" alt="logo" className="w-full h-full object-cover" />
+            <Image
+              src="/logo-nftbloom.png"
+              alt="logo"
+              width={500}
+              height={100}
+              className="w-full h-full object-cover"
+            />
           </Link>
           <Link href={"/"} className="font-mplus font-medium text-white">
             Benefits
@@ -26,9 +33,11 @@ export function Header() {
         <Button className="w-[13rem] h-3/5 flex items-center justify-between p-2 text-[18px] drop-shadow-[0_10px_10px_rgba(0,0,0,0.5)] font-normal bg-gradient-to-l from-[#0075FF] to-[#2603FB]">
           <Wallet />
           Connect Wallet
-          <img
+          <Image
             src="/monkey.png"
             alt="monkey"
+            width={100}
+            height={100}
             className="w-[20%]"
           />
         </Button>

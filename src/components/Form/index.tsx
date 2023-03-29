@@ -3,7 +3,7 @@ import { Input } from "../Input";
 import { Select } from "../Input/select";
 import { Title } from "../Title";
 
-export function Form({onSubmit} : any) {
+export function Form(onSubmit: any) {
   return (
     <form onSubmit={onSubmit} className="flex flex-col justify-between h-full">
       <label className="flex flex-col gap-2">

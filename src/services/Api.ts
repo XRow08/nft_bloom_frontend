@@ -1,8 +1,8 @@
 import axios from "axios";
 
-const url = "http://localhost:3001";
+const url = "https://nftbloom.onrender.com";
 
-const baseURL = url || "http://localhost:3001";
+const baseURL = url || "https://nftbloom.onrender.com";
 
 export const Api = axios.create({ baseURL });
 

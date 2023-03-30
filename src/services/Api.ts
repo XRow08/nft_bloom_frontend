@@ -1,8 +1,8 @@
 import axios from "axios";
 
-const url = "https://nftbloom.onrender.com";
+const url = process.env.SERVER_URL;
 
-const baseURL = url || "https://nftbloom.onrender.com";
+const baseURL = url || url;
 
 export const Api = axios.create({ baseURL });
 

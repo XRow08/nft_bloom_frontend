@@ -1,8 +1,8 @@
 import axios from "axios";
 
-const url = "http://192.168.1.77:3333";
+const url = "https://nftbloom.onrender.com";
 
-const baseURL = url || "http://192.168.1.77:3333";
+const baseURL = url || "https://nftbloom.onrender.com";
 
 export const Api = axios.create({ baseURL });
 

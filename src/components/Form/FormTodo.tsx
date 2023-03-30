@@ -35,7 +35,6 @@ export function FormTodo({ id, setPreviewFunction }: any) {
         setItemsList([]);
         return toast.error("You are not Logged!", { duration: 5000 });
       }
-      console.log(res.data);
       setItemsList(res.data);
     });
   }, [id]);

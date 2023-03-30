@@ -16,7 +16,6 @@ export function deleteLayer(data: IDeleteLayer) {
 }
 
 export function findAll(id: string) {
-  console.log('ta vindo', id)
   return Api.get(`/nft/get-layers/${id}`);
 }
 

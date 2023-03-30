@@ -30,9 +30,16 @@ export function InputImage({ nameLayer, id }: any) {
 
   useEffect(() => {
     findImages(id, nameLayer).then((response) => {
-      console.log(response)
+      const res = response.data;
+      let names: any = [];
+      res.forEach((e: any) => {
+        const name = e.split("/")[8];
+        const nameImg = name.toString();
+        e = `https://nftbloom.onrender.com/layers/${id}/${nameLayer}/${nameImg}`;
+        names.push(e);
+      });
       toast.loading("loading images!", { duration: 500 });
-      setImgs(response.data);
+      setImgs(names);
     });
   }, [nameLayer]);
 

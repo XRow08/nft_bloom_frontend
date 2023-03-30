@@ -19,16 +19,19 @@ import { Preview } from "@/components/Preview";
 export default function CreateNFT() {
   const [preview, setPreview] = useState(false);
   const [nameLayer, setNameLayer] = useState();
-  const [id, setId] = useState(0);
+  const [id, setId] = useState();
 
   const handleChangeChk = (e: any) => {
     setPreview(e.target.checked);
   };
 
   useEffect(() => {
-    StorageHelper.getItem("user")
-      .then((id: number) => setId(id))
-      .catch((err: any) => setId(0));
+    const data = StorageHelper.getItem("user");
+    if (data) {
+      setId(data.id);
+    } else {
+      setId(undefined);
+    }
   }, []);
 
   return (

@@ -31,7 +31,6 @@ export function FormTodo({ id, setPreviewFunction }: any) {
   useEffect(() => {
     findAll(id).then((res: any) => {
       if (res.data === 500) {
-        console.log("500");
         setItemsList([]);
         return toast.error("You are not Logged!", { duration: 5000 });
       }

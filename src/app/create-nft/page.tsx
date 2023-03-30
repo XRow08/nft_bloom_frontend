@@ -26,11 +26,9 @@ export default function CreateNFT() {
   };
 
   useEffect(() => {
-    const { id } = StorageHelper.getItem("user");
-    if (id === null || undefined) {
-      setId(0);
-    }
-    setId(id);
+    StorageHelper.getItem("user")
+      .then((id: number) => setId(id))
+      .catch((err: any) => setId(0));
   }, []);
 
   return (

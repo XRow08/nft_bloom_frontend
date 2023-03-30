@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const url = process.env.SERVER_URL;
+/* const url = "https://nftbloom.onrender.com"; */
+const url = "https://nftbloom.onrender.com";
 
 const baseURL = url || url;
 

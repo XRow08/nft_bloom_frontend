@@ -14,7 +14,6 @@ export function Preview({ id }: any) {
       try {
         const payload = null;
         const { status, data } = await generateImages(id, payload);
-        console.log(status, data);
         if (status === 200) {
           setImgs(data);
           toast.success("Preview loaded!");

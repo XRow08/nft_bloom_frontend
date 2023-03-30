@@ -20,12 +20,14 @@ export default function CreateNFT() {
   const [preview, setPreview] = useState(false);
   const [nameLayer, setNameLayer] = useState();
   const [id, setId] = useState(null);
+
   const handleChangeChk = (e: any) => {
     setPreview(e.target.checked);
   };
 
   useEffect(() => {
     const { id } = StorageHelper.getItem("user");
+    console.log("page id", id);
     setId(id);
   }, []);
 

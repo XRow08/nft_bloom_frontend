@@ -2,10 +2,8 @@ import { useEffect, useState } from "react";
 
 /* ICONS IMPORTS */
 import { AddImage } from "../Icon/addImage";
-import { Container } from "../Container";
 import { createImage, findImages } from "@/services/NftService";
 import toast from "react-hot-toast";
-import { Title } from "../Title";
 import { RenderPhotos } from "../RenderPhotos";
 
 export function InputImage({ nameLayer, id }: any) {
@@ -17,12 +15,10 @@ export function InputImage({ nameLayer, id }: any) {
       if (newFile.type !== "image/png") {
         return toast.error("Type incorrect, just PNG!", { duration: 3000 });
       }
-      console.log(newFile, id, nameLayer);
       const data = new FormData();
       data.append("image", newFile);
       await createImage(data, id, nameLayer);
       findImages(id, nameLayer).then((response) => {
-        console.log(response);
         setImgs(response.data);
       });
       toast.success("Success to add!");
@@ -34,12 +30,11 @@ export function InputImage({ nameLayer, id }: any) {
 
   useEffect(() => {
     findImages(id, nameLayer).then((response) => {
+      console.log(response)
       toast.loading("loading images!", { duration: 500 });
       setImgs(response.data);
     });
-  }, [nameLayer, id]);
-
-  console.log(imgs)
+  }, [nameLayer]);
 
   return (
     <div className="w-full h-[33rem] overflow-x-scroll scrollbar-thin scrollbar-thumb-brand-scroll scrollbar-track-rounded-lg scrollbar-thumb-rounded-lg px-4">
@@ -58,7 +53,7 @@ export function InputImage({ nameLayer, id }: any) {
         />
       </label>
       <div className="h-[28rem] w-full grid grid-cols-3 grid-flow-row gap-4 py-4">
-      {RenderPhotos(imgs)}
+        {RenderPhotos(imgs)}
       </div>
     </div>
   );

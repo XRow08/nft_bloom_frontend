@@ -33,7 +33,9 @@ module.exports = {
       },
       backgroundImage: {
         "create-nft": "url(/bg_create_nft.png)",
-        home: "url(/bg_home.webp)",
+        "home": "url(/bg_home.webp)",
+        "pricing": "url(/bg_pricing.png)",
+        "history": "url(/bg_history.png)",
       },
     },
   },

@@ -18,8 +18,8 @@ export function ViewOnOff({ checked, onChange }: Props) {
         checked={checked}
         onChange={onChange}
       />
-      {checked && <View />}
-      {!checked && <ViewOff />}
+      {checked && <ViewOff />}
+      {!checked && <View />}
     </label>
   );
 }

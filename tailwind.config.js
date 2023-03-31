@@ -8,6 +8,15 @@ module.exports = {
   ],
   theme: {
     extend: {
+      keyframes: {
+        scroll: {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(calc(-250px * 9))" },
+        },
+      },
+      animation: {
+        slide: "scroll 60s linear infinite",
+      },
       fontFamily: {
         archivo: ["Archivo"],
         mplus: ["M PLUS 1"],
@@ -24,6 +33,7 @@ module.exports = {
       },
       backgroundImage: {
         "create-nft": "url(/bg_create_nft.png)",
+        home: "url(/bg_home.webp)",
       },
     },
   },

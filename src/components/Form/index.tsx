@@ -1,52 +1,125 @@
 import { Button } from "../Button";
 import { Input } from "../Input";
 import { Select } from "../Input/select";
-import { Title } from "../Title";
+import { Controller, useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 
-export function Form({ onSubmit }: any) {
+/* IMPORTS SERVICES  */
+import { createNFT } from "@/services/NftService";
+
+/* IMPORTS VALIDATIONS  */
+import { CreateNFTResolver } from "@/validations/CreateNFT";
+
+export function Form() {
+  type ICreateNFTForm = {
+    nameLayer: string;
+    description: string;
+    quantity: number;
+    id: string;
+    format: { label: string; value: string };
+  };
+
+  const {
+    control,
+    formState: { errors },
+    handleSubmit,
+    reset,
+  } = useForm<ICreateNFTForm>({ resolver: CreateNFTResolver });
+
+  async function onSubmit(values: ICreateNFTForm) {
+    try {
+      toast.loading("Sending!");
+      /* await createNFT(values); */
+      console.log(values);
+      reset({
+        nameLayer: "",
+        description: "",
+        quantity: 0,
+        id: "",
+        format: { label: "PNG", value: "PNG" },
+      });
+      toast.success("Success!");
+    } catch (error) {
+      console.log(error);
+      toast.error("Error to create NFT!");
+    }
+  }
   return (
-    <form onSubmit={onSubmit} className="flex flex-col justify-between h-full">
-      <label className="flex flex-col gap-2">
-        <Title children={"Collection name"} color="white" className="pl-4" />
-        <Input placeholder="New layer name" type="text" />
-      </label>
-      <label className="flex flex-col">
-        <Title
-          children={"Collection description"}
-          color="white"
-          className="pl-4"
-        />
-        <Title
-          children={"The description will appear in the NFT metadata"}
-          className="pl-4 text-[rgba(255,255,255,0.5)] mb-2"
-        />
-        <Input placeholder="Description" type="text" />
-      </label>
-      <label className="flex flex-col">
-        <Title children={"Collection size"} color="white" className="pl-4" />
-        <Title
-          children={"Number of NFTs to generate"}
-          className="pl-4 text-[rgba(255,255,255,0.5)] mb-2"
-        />
-        <Input placeholder="0" type="number" />
-      </label>
-      <label className="flex flex-col">
-        <Title children={"Name of each NFT"} color="white" className="pl-4" />
-        <Title
-          children={"Preview: '#{{id}17}'"}
-          className="pl-4 text-[rgba(255,255,255,0.5)] mb-2"
-        />
-        <Input placeholder="#{{id}17}" type="text" />
-      </label>
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="flex flex-col justify-between h-full"
+    >
+      <Controller
+        name="nameLayer"
+        control={control}
+        render={({ field }) => (
+          <Input
+            {...field}
+            label1="Collection name"
+            errors={errors}
+            placeholder="New layer name"
+            className="mt-2"
+            type="text"
+          />
+        )}
+      />
+      <Controller
+        name="description"
+        control={control}
+        render={({ field }) => (
+          <Input
+            {...field}
+            label1="Collection description"
+            label2="The description will appear in the NFT metadata"
+            errors={errors}
+            placeholder="Description"
+            type="text"
+          />
+        )}
+      />
+      <Controller
+        name="quantity"
+        control={control}
+        render={({ field }) => (
+          <Input
+            {...field}
+            label1="Collection size"
+            label2="Number of NFTs to generate"
+            errors={errors}
+            placeholder="0"
+            type="number"
+          />
+        )}
+      />
+      <Controller
+        name="id"
+        control={control}
+        render={({ field }) => (
+          <Input
+            {...field}
+            label1="Name of each NFT"
+            label2="Preview: '#{{id}17}'"
+            errors={errors}
+            placeholder="#{{id}17}"
+            type="text"
+          />
+        )}
+      />
 
-      <label className="flex flex-col">
-        <Title children={"Export Format"} color="white" className="pl-4" />
-        <Title
-          children={"Recommended format: webp (best quality & size)"}
-          className="pl-4 text-[rgba(255,255,255,0.5)] mb-2"
-        />
-        <Select />
-      </label>
+      <Controller
+        name="format"
+        control={control}
+        render={({ field }) => (
+          <Select
+            {...field}
+            label1="Export Format"
+            label2="Recommended format: webp (best quality & size)"
+            errors={errors}
+            placeholder="Format"
+            name="format"
+          />
+        )}
+      />
 
       <Button type="submit" children={"Buy"} className="h-12 mt-4" />
     </form>

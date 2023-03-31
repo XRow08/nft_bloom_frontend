@@ -145,10 +145,10 @@ export function FormTodo({ id, setPreviewFunction }: any) {
 
   return (
     <>
-      <Container className="w-[60%] border-r-[0.5rem] border-brand-primary p-4 h-[32.45rem] flex flex-col gap-4 overflow-y-scroll overflow-x-hidden scrollbar-thin scrollbar-thumb-brand-scroll scrollbar-track-rounded-lg scrollbar-thumb-rounded-lg">
+      <Container className="bg-brand-primary w-[60%] h-[33.2rem] border-r-[0.5rem] border-brand-primary p-2 py-4 pr-2 flex flex-col gap-4 overflow-y-scroll overflow-x-hidden scrollbar-thin scrollbar-thumb-brand-scroll scrollbar-track-rounded-lg scrollbar-thumb-rounded-lg">
         <form
           onSubmit={handleSubmit(onSubmitCreate)}
-          className="w-full flex items-center gap-2 h-12 z-10"
+          className="w-full flex items-center gap-4 h-12 z-10"
         >
           <Controller
             name="name"
@@ -191,7 +191,7 @@ export function FormTodo({ id, setPreviewFunction }: any) {
                             <Input
                               type="text"
                               onBlur={(e: any) => onSubmitEdit(e, name)}
-                              onKeyPress={handleKeyPress}
+                              onKeyDown={() => handleKeyPress}
                             />
                           ) : (
                             <div

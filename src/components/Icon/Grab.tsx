@@ -6,7 +6,7 @@ export function Grab() {
       viewBox="0 0 20 20"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className="cursor-grab"
+      className="cursor-grab w-6"
     >
       <path
         d="M8.3335 5.83334C8.3335 7.21406 7.21421 8.33334 5.8335 8.33334C4.45278 8.33334 3.3335 7.21406 3.3335 5.83334C3.3335 4.45263 4.45278 3.33334 5.8335 3.33334C7.21421 3.33334 8.3335 4.45263 8.3335 5.83334Z"

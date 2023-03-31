@@ -2,6 +2,7 @@ import { IEditLayer } from "@/interfaces/IEditLayer";
 import { ICreateLayer } from "./../interfaces/ICreateLayer";
 import { IDeleteLayer } from "./../interfaces/IDeleteLayer";
 import { Api } from "./Api";
+import { ICreateNFT } from "@/interfaces/ICreateNFT";
 
 export function createLayer(data: ICreateLayer) {
   return Api.post("/nft/create-layer", data);
@@ -29,4 +30,8 @@ export function findImages(id: string, name: string) {
 
 export function generateImages(id: string, data: any) {
   return Api.post(`/nft/start-preview/${id}`, data);
+}
+
+export function createNFT(data: ICreateNFT) {
+  return Api.post(`/nft/create-nft`, data);
 }

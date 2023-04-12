@@ -27,22 +27,20 @@ import { Loading } from "../Loading";
 export function FormTodo({ id, setPreviewFunction }: any) {
   const [selectedItems, setSelectedItems] = useState([]);
   const [keyCheck, setKeyCheck] = useState(99999);
-  const [adress, setAdress] = useState<string | undefined>();
   const [doubleClick, setDoubleClick] = useState(false);
+  const adress = StorageHelper.getItem("adress");
   const [itemsList, setItemsList] = useState([]);
 
   useEffect(() => {
     findAll(id)
       .then((res: any) => {
-        setAdress(StorageHelper.getItem("adress"));
         if (res.data === 500) {
-          setItemsList([]);
           return toast.error("You are not Logged!", { duration: 5000 });
         }
         setItemsList(res.data);
       })
       .catch((err) => {
-        console.log(err)
+        console.log(err);
         toast.error("You have to connect your Wallet!", { duration: 5000 });
       });
   }, [id]);
@@ -54,7 +52,7 @@ export function FormTodo({ id, setPreviewFunction }: any) {
       values.id = id;
       const name = values.name
         ? values.name
-        : `New layer name ${itemsList.length}`;
+        : `New layer name ${itemsList?.length}`;
       values.name = name;
       console.log(values.name);
       const { status } = await createLayer(values);
@@ -98,7 +96,7 @@ export function FormTodo({ id, setPreviewFunction }: any) {
       setDoubleClick(false);
       const valor = e.target.value
         ? e.target.value
-        : `New layer name ${itemsList.length}`;
+        : `New layer name ${itemsList?.length}`;
       const data = {
         id: id,
         name: name,
@@ -135,7 +133,7 @@ export function FormTodo({ id, setPreviewFunction }: any) {
   function handleOnDragEnd(result: any) {
     if (!result.destination) return;
 
-    const items = Array.from(itemsList);
+    const items: any = Array.from(itemsList);
     const [reorderedItem] = items.splice(result.source.index, 1);
     items.splice(result.destination.index, 0, reorderedItem);
 
@@ -172,7 +170,7 @@ export function FormTodo({ id, setPreviewFunction }: any) {
           </Button>
         </form>
 
-        {!itemsList ? (
+        {itemsList.length === 0 ? (
           <div className="w-full h-full flex justify-center items-centers mb-20">
             <Loading size="big" label="Loading categorys..." />
           </div>

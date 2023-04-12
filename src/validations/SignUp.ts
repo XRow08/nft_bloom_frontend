@@ -2,12 +2,12 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 const SignUpSchema = yup.object({
-  name: yup.string().required("Preencha seu nome"),
+  name: yup.string().required("Type the name"),
   email: yup
     .string()
-    .email("Preencha um e-mail válido")
-    .required("Preencha um e-mail"),
-  password: yup.string().required("Preencha uma senha"),
+    .email("Type a valid email")
+    .required("Type a email"),
+  password: yup.string().required("Type a password"),
 });
 
 export const SignUpResolver = yupResolver(SignUpSchema);

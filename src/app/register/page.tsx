@@ -1,50 +1,49 @@
 "use client";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { AlertEnum } from "@/components/Alert";
 import { Container } from "@/components/Container";
-import { FormLogin } from "@/components/Form/FormLogin";
 import { Header } from "@/components/Header";
 import { Title } from "@/components/Title";
+import { FormSignUp } from "@/components/Form/FormSignUp";
+
+import { ISignUpPayload } from "@/interfaces/ISignUpPayload";
 import { useAuthContext } from "@/contexts";
-import { LoginResolver } from "@/validations/Login";
+import { SignUpResolver } from "@/validations/SignUp";
 import { useRouter } from "next/navigation";
 
-type ILoginForm = {
-  email: string;
-  password: string;
-};
-
-export default function Login() {
+export default function Register() {
   const router = useRouter();
   const {
     control,
     formState: { errors },
     handleSubmit,
     reset,
-  } = useForm<ILoginForm>({ resolver: LoginResolver });
-  const { login } = useAuthContext();
+  } = useForm<ISignUpPayload>({ resolver: SignUpResolver });
+
+  const { signUp } = useAuthContext();
 
   const [alert, setAlert] = useState<
     { type: AlertEnum; message: string } | undefined
   >();
 
-  async function onSubmit(values: ILoginForm) {
+  async function onSubmit(values: ISignUpPayload) {
     try {
       setAlert(undefined);
-      await login(values);
+      await signUp(values);
       setAlert({
         type: AlertEnum.SUCCESS,
-        message: "Successfully Login!",
+        message: "Account created Successfully!",
       });
-      reset({ email: "", password: "" });
-      router.push("/create-nft");
+      reset({ name: "", email: "", password: "" });
+      router.push("/login");
     } catch (error) {
+      console.log(error);
       setAlert({
         type: AlertEnum.ERROR,
-        message: "Incorrect credencials!",
+        message: "Try again please",
       });
     }
   }
@@ -58,7 +57,7 @@ export default function Login() {
       <Container className="bg-brand-primary flex w-3/5 h-full p-0 rounded-t-none mb-8">
         <div className="h-full w-1/2 rounded-bl-lg drop-shadow-[0px_0px_20px_rgba(0,0,0,0.5)]">
           <Image
-            src={"/bg_login.png"}
+            src={"/bg_register.png"}
             alt="login"
             className="w-full h-full object-cover rounded-bl-lg"
             width={1000}
@@ -79,13 +78,13 @@ export default function Login() {
           <div className="h-full flex flex-col justify-center items-start p-8 pr-12 gap-12">
             <div className="flex flex-col gap-4">
               <Title color="white" className="text-3xl drop-shadow-none">
-                Welcome,
+                Create,
               </Title>
               <Title color="white" className="text-base drop-shadow-none">
-                Fill in your email and password to access
+                Fill in the fields below to create your account
               </Title>
             </div>
-            <FormLogin
+            <FormSignUp
               alert={alert}
               type={alert?.type}
               message={alert?.message}

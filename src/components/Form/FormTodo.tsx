@@ -21,21 +21,30 @@ import { DeleteIcon } from "../Icon/DeleteIcon";
 import { Grab } from "../Icon/Grab";
 import { ViewOnOff } from "../Input/ViewOnOff";
 import { Container } from "../Container";
+import { StorageHelper } from "@/helpers/StorageHelper";
+import { Loading } from "../Loading";
 
 export function FormTodo({ id, setPreviewFunction }: any) {
   const [selectedItems, setSelectedItems] = useState([]);
   const [keyCheck, setKeyCheck] = useState(99999);
+  const [adress, setAdress] = useState<string | undefined>();
   const [doubleClick, setDoubleClick] = useState(false);
   const [itemsList, setItemsList] = useState([]);
 
   useEffect(() => {
-    findAll(id).then((res: any) => {
-      if (res.data === 500) {
-        setItemsList([]);
-        return toast.error("You are not Logged!", { duration: 5000 });
-      }
-      setItemsList(res.data);
-    });
+    findAll(id)
+      .then((res: any) => {
+        setAdress(StorageHelper.getItem("adress"));
+        if (res.data === 500) {
+          setItemsList([]);
+          return toast.error("You are not Logged!", { duration: 5000 });
+        }
+        setItemsList(res.data);
+      })
+      .catch((err) => {
+        console.log(err)
+        toast.error("You have to connect your Wallet!", { duration: 5000 });
+      });
   }, [id]);
 
   const { control, handleSubmit, reset } = useForm();
@@ -163,71 +172,77 @@ export function FormTodo({ id, setPreviewFunction }: any) {
           </Button>
         </form>
 
-        <DragDropContext onDragEnd={handleOnDragEnd}>
-          <Droppable droppableId="categorys">
-            {(provided) => (
-              <ul
-                className="flex flex-col gap-4"
-                {...provided.droppableProps}
-                ref={provided.innerRef}
-              >
-                {itemsList.map(({ id, name }, index) => {
-                  return (
-                    <Draggable key={id} draggableId={id} index={index}>
-                      {(provided) => (
-                        <li
-                          className={
-                            "flex items-center gap-2 w-full cursor-default"
-                          }
-                          ref={provided.innerRef}
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                        >
-                          {name !== "Background" && <Grab />}
+        {!itemsList ? (
+          <div className="w-full h-full flex justify-center items-centers mb-20">
+            <Loading size="big" label="Loading categorys..." />
+          </div>
+        ) : (
+          <DragDropContext onDragEnd={handleOnDragEnd}>
+            <Droppable droppableId="categorys">
+              {(provided) => (
+                <ul
+                  className="flex flex-col gap-4"
+                  {...provided.droppableProps}
+                  ref={provided.innerRef}
+                >
+                  {itemsList.map(({ id, name }, index) => {
+                    return (
+                      <Draggable key={id} draggableId={id} index={index}>
+                        {(provided) => (
+                          <li
+                            className={
+                              "flex items-center gap-2 w-full cursor-default"
+                            }
+                            ref={provided.innerRef}
+                            {...provided.draggableProps}
+                            {...provided.dragHandleProps}
+                          >
+                            {name !== "Background" && <Grab />}
 
-                          {doubleClick &&
-                          keyCheck === index &&
-                          name !== "Background" ? (
-                            <Input
-                              type="text"
-                              onBlur={(e: any) => onSubmitEdit(e, name)}
-                              onKeyDown={() => handleKeyPress}
-                            />
-                          ) : (
-                            <div
-                              className={classNames(
-                                "bg-transparent transition-all duration-75 ease-in rounded-lg h-12 drop-shadow-[0_10px_10px_rgba(0,0,0,0.5)] w-full",
-                                {
-                                  "bg-gradient-to-r from-[#03FB75] to-[#00A3FF] p-[1px]":
-                                    keyCheck === index,
-                                }
-                              )}
-                              onClick={(e) => {
-                                clickHandler(e, index);
-                                setPreviewFunction(name);
-                              }}
-                            >
-                              <button
-                                className="bg-brand-primary w-full h-full px-4 rounded-lg drop-shadow-none shadow-none outline-none flex justify-start items-center text-white"
-                                children={name}
+                            {doubleClick &&
+                            keyCheck === index &&
+                            name !== "Background" ? (
+                              <Input
+                                type="text"
+                                onBlur={(e: any) => onSubmitEdit(e, name)}
+                                onKeyDown={() => handleKeyPress}
                               />
-                            </div>
-                          )}
-                          <ViewOnOff
-                            checked={selectedItems.includes(name)}
-                            onChange={() => handleSelectItem(name)}
-                          />
-                          <DeleteIcon onClick={() => onSubmitDelete(name)} />
-                        </li>
-                      )}
-                    </Draggable>
-                  );
-                })}
-                {provided.placeholder}
-              </ul>
-            )}
-          </Droppable>
-        </DragDropContext>
+                            ) : (
+                              <div
+                                className={classNames(
+                                  "bg-transparent transition-all duration-75 ease-in rounded-lg h-12 drop-shadow-[0_10px_10px_rgba(0,0,0,0.5)] w-full",
+                                  {
+                                    "bg-gradient-to-r from-[#03FB75] to-[#00A3FF] p-[1px]":
+                                      keyCheck === index,
+                                  }
+                                )}
+                                onClick={(e) => {
+                                  clickHandler(e, index);
+                                  setPreviewFunction(name);
+                                }}
+                              >
+                                <button
+                                  className="bg-brand-primary w-full h-full px-4 rounded-lg drop-shadow-none shadow-none outline-none flex justify-start items-center text-white"
+                                  children={name}
+                                />
+                              </div>
+                            )}
+                            <ViewOnOff
+                              checked={selectedItems.includes(name)}
+                              onChange={() => handleSelectItem(name)}
+                            />
+                            <DeleteIcon onClick={() => onSubmitDelete(name)} />
+                          </li>
+                        )}
+                      </Draggable>
+                    );
+                  })}
+                  {provided.placeholder}
+                </ul>
+              )}
+            </Droppable>
+          </DragDropContext>
+        )}
       </Container>
     </>
   );

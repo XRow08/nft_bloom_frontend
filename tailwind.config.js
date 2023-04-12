@@ -36,6 +36,8 @@ module.exports = {
         "home": "url(/bg_home.webp)",
         "pricing": "url(/bg_pricing.png)",
         "history": "url(/bg_history.png)",
+        "login": "url(/bg_login.png)",
+        "register": "url(/bg_register.png)",
       },
     },
   },

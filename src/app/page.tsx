@@ -122,7 +122,7 @@ export default function Home() {
               the process quick and easy
             </Title>
             <Link href={"/create-nft"}>
-              <Button className="flex items-center gap-2 h-12 px-4 text-base font-normal font-mplus mt-4">
+              <Button className="flex items-center gap-2 h-12 px-4 text-base font-normal font-mplus mt-4 hover:scale-[1.02] transition-all duration-300 ease-in-out">
                 <Image
                   width={1000}
                   height={1000}

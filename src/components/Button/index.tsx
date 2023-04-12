@@ -5,7 +5,7 @@ type Props = {
   type?: "button" | "submit";
   className?: string;
   children: React.ReactNode;
-  onClick?: () => void;
+  onClick?: any;
 };
 
 export function Button({
@@ -19,7 +19,7 @@ export function Button({
       onClick={() => onClick}
       type={type}
       className={classNames(
-        "font-mplus bg-brand-secundary text-white rounded-lg transition-all ease-in-out duration-300 no-underline drop-shadow-[0_10px_10px_rgba(0,0,0,0.5)]",
+        "font-mplus bg-brand-secundary text-white rounded-lg transition-all ease-in-out duration-200 no-underline drop-shadow-[0_10px_10px_rgba(0,0,0,0.5)] hover:scale-[1.02]",
         className
       )}
     >

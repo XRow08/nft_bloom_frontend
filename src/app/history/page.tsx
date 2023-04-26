@@ -1,5 +1,5 @@
+"use client";
 import Image from "next/image";
-
 import { Container } from "@/components/Container";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";

@@ -151,7 +151,7 @@ export function FormTodo({ id, setPreviewFunction }: any) {
   };
 
   return (
-    <Container className="bg-brand-primary w-[60%] h-[100%] border-r-[0.5rem] border-brand-primary p-2 py-4 pr-2 flex flex-col gap-4 overflow-y-scroll overflow-x-hidden scrollbar-thin scrollbar-thumb-brand-scroll scrollbar-track-rounded-lg scrollbar-thumb-rounded-lg">
+    <Container className="bg-brand-primary w-[60%] h-[97%] border-r-[0.5rem] border-brand-primary p-2 py-4 pr-2 flex flex-col gap-4 overflow-y-scroll overflow-x-hidden scrollbar-thin scrollbar-thumb-brand-scroll scrollbar-track-rounded-lg scrollbar-thumb-rounded-lg">
       <form
         onSubmit={handleSubmit(onSubmitCreate)}
         className="w-full flex items-center gap-4 h-12 z-10"

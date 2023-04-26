@@ -7,7 +7,7 @@ import { Title } from "@/components/Title";
 
 export default function History() {
   return (
-    <section className="h-full w-full bg-history bg-no-repeat bg-cover flex flex-col items-center gap-4">
+    <section className="h-full w-full bg-history bg-no-repeat pt-20 bg-cover flex flex-col items-center gap-4">
       <Header />
       <Container className="w-[90%] h-[70vh] p-20 bg-[rgba(0,0,0,0.5)] gap-20 flex items-center justify-between backdrop-blur-xl border border-[rgba(255,255,255,.1)]">
         <div className="w-[40%] flex flex-col gap-6">

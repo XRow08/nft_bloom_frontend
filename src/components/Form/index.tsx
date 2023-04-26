@@ -58,7 +58,7 @@ export function Form() {
             label1="Collection name"
             errors={errors}
             placeholder="New layer name"
-            className="mt-2"
+            className="mt-1"
             type="text"
           />
         )}

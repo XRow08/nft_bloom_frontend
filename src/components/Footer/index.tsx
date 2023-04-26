@@ -4,7 +4,7 @@ import { Title } from "../Title";
 
 export function Footer() {
   return (
-    <section className="bg-black h-[30vh] w-full mt-8 gap-4 flex flex-col justify-end items-center pb-8">
+    <section className="bg-black h-[15rem] w-full mt-8 gap-4 flex flex-col justify-end items-center pb-8">
       <Image
         width={1000}
         height={1000}

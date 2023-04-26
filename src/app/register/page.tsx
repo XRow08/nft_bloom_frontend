@@ -49,52 +49,54 @@ export default function Register() {
   }
 
   return (
-    <section className="bg-create-nft flex flex-col items-center h-screen w-full">
-      <Header />
-      <div className="w-3/5 bg-gradient-to-l from-[#06FFF0] to-[#03FB75] mt-4 h-[5%] z-50 rounded-t-lg flex justify-center items-center font-mplus font-medium text-[20px]">
-        Access the plataform
-      </div>
-      <Container className="bg-brand-primary flex w-3/5 h-full p-0 rounded-t-none mb-8">
-        <div className="h-full w-1/2 rounded-bl-lg drop-shadow-[0px_0px_20px_rgba(0,0,0,0.5)]">
-          <Image
-            src={"/bg_register.png"}
-            alt="login"
-            className="w-full h-full object-cover rounded-bl-lg"
-            width={1000}
-            height={1000}
-          />
+    <>
+      <section className="bg-create-nft bg-no-repeat bg-cover flex flex-col items-center h-screen w-full pt-20">
+        <Header />
+        <div className="w-3/5 bg-gradient-to-l from-[#06FFF0] to-[#03FB75] mt-4 h-[5%] z-50 rounded-t-lg flex justify-center items-center font-mplus font-medium text-[20px]">
+          Access the plataform
         </div>
-        <div className="flex flex-col w-1/2 p-8 py-12">
-          <div className="flex justify-start w-full pb-6 border-b border-[rgba(255,255,255,0.1)]">
+        <Container className="bg-brand-primary flex w-3/5 h-full p-0 rounded-t-none mb-8">
+          <div className="h-full w-1/2 rounded-bl-lg drop-shadow-[0px_0px_20px_rgba(0,0,0,0.5)]">
             <Image
-              src={"/logo-nftbloom.png"}
+              src={"/bg_register.png"}
               alt="login"
-              className="w-1/3 h-full object-cover"
+              className="w-full h-full object-cover rounded-bl-lg"
               width={1000}
               height={1000}
             />
           </div>
-
-          <div className="h-full flex flex-col justify-center items-start p-8 pr-12 gap-12">
-            <div className="flex flex-col gap-4">
-              <Title color="white" className="text-3xl drop-shadow-none">
-                Create,
-              </Title>
-              <Title color="white" className="text-base drop-shadow-none">
-                Fill in the fields below to create your account
-              </Title>
+          <div className="flex flex-col w-1/2 p-8 py-12">
+            <div className="flex justify-start w-full pb-6 border-b border-[rgba(255,255,255,0.1)]">
+              <Image
+                src={"/logo-nftbloom.png"}
+                alt="login"
+                className="w-1/3 h-full object-cover"
+                width={1000}
+                height={1000}
+              />
             </div>
-            <FormSignUp
-              alert={alert}
-              type={alert?.type}
-              message={alert?.message}
-              onSubmit={handleSubmit(onSubmit)}
-              control={control}
-              errors={errors}
-            />
+
+            <div className="h-full flex flex-col justify-center items-start p-8 pr-12 gap-12">
+              <div className="flex flex-col gap-4">
+                <Title color="white" className="text-3xl drop-shadow-none">
+                  Create,
+                </Title>
+                <Title color="white" className="text-base drop-shadow-none">
+                  Fill in the fields below to create your account
+                </Title>
+              </div>
+              <FormSignUp
+                alert={alert}
+                type={alert?.type}
+                message={alert?.message}
+                onSubmit={handleSubmit(onSubmit)}
+                control={control}
+                errors={errors}
+              />
+            </div>
           </div>
-        </div>
-      </Container>
-    </section>
+        </Container>
+      </section>
+    </>
   );
 }

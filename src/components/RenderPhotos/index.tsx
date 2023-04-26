@@ -5,7 +5,7 @@ import { Title } from "../Title";
 export function RenderPhotos(imgs: any) {
   return imgs.map((photo: any) => {
     const url = photo.split("/")[6];
-    const name = url.split(".")[0];
+    const name = url?.split(".")[0];
     return (
       <Container
         key={photo}

@@ -24,7 +24,7 @@ export function Input({
   ...props
 }: Props) {
   return (
-    <div className="w-full">
+    <div className="flex flex-col items-start w-full">
       <Title
         children={label1}
         color="white"
@@ -38,7 +38,7 @@ export function Input({
       />
       <div
         className={classNames(
-          "bg-gradient-to-r from-[#03FB75] to-[#00A3FF] p-[1px] rounded-lg h-12 drop-shadow-[0_10px_10px_rgba(0,0,0,0.5)] w-full",
+          "bg-gradient-to-r from-[#03FB75] to-[#00A3FF] p-[1px] rounded-lg min-h-12 h-12 drop-shadow-[0_10px_10px_rgba(0,0,0,0.5)] w-full",
           className
         )}
       >

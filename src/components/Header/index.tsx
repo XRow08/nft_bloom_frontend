@@ -3,11 +3,12 @@ import { Button } from "../Button";
 import { Wallet } from "../Icon/wallet";
 import Image from "next/image";
 import { StorageHelper } from "@/helpers/StorageHelper";
+import { useRouter } from "next/navigation";
 
 export function Header() {
+  const router = useRouter();
 
   async function addNetwork() {
-    console.log("caiu");
     interface CustomWindow extends Window {
       ethereum?: any;
     }
@@ -45,14 +46,18 @@ export function Header() {
     } else {
       alert("MetaMask is not installed.");
     }
+    router.push("/login");
   }
 
   return (
-    <div className="w-[90%] h-[8vh] bg-transparent border-b border-b-[rgba(255,255,255,0.3)] flex justify-end items-center">
+    <div className="w-[90%] h-[8vh] bg-transparent border-b border-b-[rgba(255,255,255,0.3)] absolute top-0 z-50 flex justify-end items-center">
       <div className="flex w-full h-full items-center justify-between">
         <div className="w-[17rem]"></div>
         <div className="flex justify-center items-center w-full gap-4">
-          <Link href={"/create-nft"} className="font-mplus font-medium text-white">
+          <Link
+            href={"/create-nft"}
+            className="font-mplus font-medium text-white"
+          >
             Create
           </Link>
           <Link href={"/"} className="w-[8rem] mx-4">
@@ -68,7 +73,10 @@ export function Header() {
             Pricing
           </Link>
         </div>
-        <button onClick={addNetwork} className="rounded-lg font-mplus text-white w-[17rem] h-3/5 flex items-center justify-between p-2 text-[18px] drop-shadow-[0_10px_10px_rgba(0,0,0,0.5)] font-normal bg-gradient-to-l from-[#0075FF] to-[#2603FB]">
+        <button
+          onClick={addNetwork}
+          className="rounded-lg font-mplus text-white w-[17rem] h-3/5 flex items-center justify-between p-2 text-[18px] drop-shadow-[0_10px_10px_rgba(0,0,0,0.5)] font-normal bg-gradient-to-l from-[#0075FF] to-[#2603FB]"
+        >
           <Wallet />
           Connect Wallet
           <Image

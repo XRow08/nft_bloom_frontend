@@ -50,7 +50,7 @@ export default function Login() {
   }
 
   return (
-    <section className="bg-create-nft flex flex-col items-center h-screen w-full">
+    <section className="bg-create-nft bg-no-repeat bg-cover flex flex-col items-center h-screen w-full pt-20">
       <Header />
       <div className="w-3/5 bg-gradient-to-l from-[#06FFF0] to-[#03FB75] mt-4 h-[5%] z-50 rounded-t-lg flex justify-center items-center font-mplus font-medium text-[20px]">
         Access the plataform

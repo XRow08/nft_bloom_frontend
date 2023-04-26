@@ -17,7 +17,7 @@ export function FormLogin({
   return (
     <form className="w-full flex flex-col gap-8" onSubmit={onSubmit}>
       {alert && <Alert type={type}>{message}</Alert>}
-      <label className="flex items-center gap-2">
+      <label className="flex items-center gap-2 w-full">
         <EmailIcon />
         <Controller
           name="email"
@@ -46,15 +46,9 @@ export function FormLogin({
             />
           )}
         />
-        <Link
-          href={"/"}
-          className="absolute right-[5.1rem] bottom-[18.5rem] text-center text-white cursor-pointer text-sm font-mplus font-normal transition-all duration-300 ease-in-out"
-        >
-          Recover Password
-        </Link>
       </label>
 
-      <div className="w-[92.5%] self-end flex flex-col gap-4">
+      <div className="w-[93%] self-end flex flex-col gap-4">
         <Button type="submit" className="w-full h-12 mt-8">
           Access account
         </Button>

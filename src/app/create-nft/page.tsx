@@ -38,13 +38,13 @@ export default function CreateNFT() {
   }, [id]);
 
   return (
-    <section className="w-full h-screen bg-create-nft bg-no-repeat bg-cover flex flex-col items-center overflow-hidden">
+    <section className="w-full h-screen bg-create-nft bg-no-repeat bg-cover pt-20 flex flex-col items-center overflow-hidden">
       <Header />
       <Toaster />
       <div className="w-[90%] bg-gradient-to-l from-[#06FFF0] to-[#03FB75] mt-4 h-[5%] rounded-t-lg flex justify-center items-center font-mplus font-medium text-[20px]">
         Create rarity and tiers
       </div>
-      <Container className="bg-brand-primary w-[90%] h-[80%] flex justify-center items-center rounded-b-lg rounded-t-none">
+      <Container className="bg-brand-primary w-[90%] h-[90%] flex justify-center items-center rounded-b-lg rounded-t-none">
         <div className="w-[95%] h-full">
           <div className="w-full flex justify-between border-b border-b-[rgba(255,255,255,0.3)] py-4">
             <h1 className="font-normal font-archivo text-white text-[20px]">
@@ -54,8 +54,8 @@ export default function CreateNFT() {
               <BsArrowLeftCircle color="white" size={24} />
             </Link>
           </div>
-          <div className="w-full h-full flex items-start py-4 gap-10">
-            <Container className="bg-brand-primary w-[40%] h-[90%] p-4 pb-6">
+          <div className="w-full h-full flex py-4 gap-10">
+            <Container className="bg-brand-primary w-[40%] h-[92%] p-4 pb-6">
               <Form />
             </Container>
             <div className="h-full w-full flex flex-col">
@@ -69,7 +69,7 @@ export default function CreateNFT() {
                 }}
               />
               {!preview ? (
-                <div className="flex w-full h-full gap-4">
+                <div className="flex w-full h-[75.8%] gap-4">
                   <FormTodo
                     id={id}
                     setPreviewFunction={(name: any) => setNameLayer(name)}

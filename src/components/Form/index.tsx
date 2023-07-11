@@ -1,7 +1,7 @@
 import { Button } from "../Button";
 import { Input } from "../Input";
 import { Select } from "../Input/select";
-import { Controller, useForm } from "react-hook-form";
+import { Controller, Resolver, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 
 /* IMPORTS SERVICES  */
@@ -24,7 +24,7 @@ export function Form() {
     formState: { errors },
     handleSubmit,
     reset,
-  } = useForm<ICreateNFTForm>({ resolver: CreateNFTResolver });
+  } = useForm<ICreateNFTForm>({ resolver: CreateNFTResolver as Resolver<ICreateNFTForm, any> });
 
   async function onSubmit(values: ICreateNFTForm) {
     try {

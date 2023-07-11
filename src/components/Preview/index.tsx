@@ -1,11 +1,8 @@
 import { useEffect, useState } from "react";
-
 import { generateImages } from "@/services/NftService";
 import { Container } from "../Container";
 import { Title } from "../Title";
-
 import toast from "react-hot-toast";
-import Image from "next/image";
 
 export function Preview({ id }: any) {
   const [imgs, setImgs] = useState([]);
@@ -13,7 +10,22 @@ export function Preview({ id }: any) {
   useEffect(() => {
     async function onSubmitPreview(id: any) {
       try {
-        const payload = null;
+        const payload = {
+          config: [
+            {
+              growEditionSizeTo: 10,
+              layersOrder: [
+                { name: "Background" },
+                { name: "Eyeball" },
+                { name: "Eye color" },
+                { name: "Iris" },
+                { name: "Shine" },
+                { name: "Bottom lid" },
+                { name: "Top lid" },
+              ],
+            },
+          ]
+        };
         const { status, data } = await generateImages(id, payload);
         if (status === 200) {
           setImgs(data);

@@ -1,10 +1,10 @@
 "use client";
-import { useState } from "react";
+import { ChangeEventHandler } from "react";
 import { View } from "../Icon/View";
 import { ViewOff } from "../Icon/ViewOff";
 
 type Props = {
-  onChange?: any;
+  onChange?: ChangeEventHandler<HTMLInputElement>;
   checked: any;
   onClick?: any;
 };

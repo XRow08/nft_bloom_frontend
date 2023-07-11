@@ -5,8 +5,10 @@ import { AddImage } from "../Icon/addImage";
 import { createImage, findImages } from "@/services/NftService";
 import toast from "react-hot-toast";
 import { RenderPhotos } from "../RenderPhotos";
+import { useLayersStore } from "@/stores/layers";
 
-export function InputImage({ nameLayer, id }: any) {
+export function InputImage({ id }: any) {
+  const { nameLayer } = useLayersStore();
   const [imgs, setImgs] = useState([]);
 
   const handleChange = async (e: any) => {

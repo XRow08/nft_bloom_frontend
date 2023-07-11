@@ -1,43 +1,30 @@
 import { useState, useEffect } from "react";
-
-/* IMPORT SERVICES */
-import {
-  findAll,
-  deleteLayer,
-  createLayer,
-  editLayer,
-} from "@/services/NftService";
-
-/* IMPORT DEPENDENCES */
+import { findAll } from "@/services/NftService";
 import toast from "react-hot-toast";
 import { Controller, useForm } from "react-hook-form";
-import classNames from "classnames";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-
-/* IMPORT COMPONENTS */
 import { Input } from "../Input";
 import { Button } from "../Button";
-import { DeleteIcon } from "../Icon/DeleteIcon";
-import { Grab } from "../Icon/Grab";
-import { ViewOnOff } from "../Input/ViewOnOff";
 import { Container } from "../Container";
-import { StorageHelper } from "@/helpers/StorageHelper";
 import { Loading } from "../Loading";
+import { Reorder } from "framer-motion";
+import { useLayer } from "@/hooks";
+import { useLayersStore } from "@/stores/layers";
+import { ILayer } from "@/interfaces";
+import { LayerItem } from "../LayerList/LayerItem";
 
-export function FormTodo({ id, setPreviewFunction }: any) {
-  const [selectedItems, setSelectedItems] = useState([]);
+export function FormTodo({ id }: { id: string }) {
   const [keyCheck, setKeyCheck] = useState(99999);
-  const [doubleClick, setDoubleClick] = useState(false);
-  const adress = StorageHelper.getItem("adress");
-  const [itemsList, setItemsList] = useState([]);
+  const { onSubmitCreate } = useLayer();
+  const { setLayersOrder, layersOrder } = useLayersStore();
 
   useEffect(() => {
     findAll(id)
-      .then((res: any) => {
+      .then((res) => {
         if (res.data === 500) {
           return toast.error("You are not Logged!");
         }
-        setItemsList(res.data);
+        console.log(res.data);
+        setLayersOrder(res.data as ILayer[]);
       })
       .catch((err) => {
         console.log(err);
@@ -45,115 +32,16 @@ export function FormTodo({ id, setPreviewFunction }: any) {
       });
   }, [id]);
 
-  const { control, handleSubmit, reset } = useForm();
+  const { control, handleSubmit } = useForm();
 
-  async function onSubmitCreate(values: any) {
-    try {
-      values.id = id;
-      const name = values.name
-        ? values.name
-        : `New layer name ${itemsList?.length}`;
-      values.name = name;
-      console.log(values.name);
-      const { status } = await createLayer(values);
-      if (status === 200) {
-        reset({ name: "" });
-        toast.success("Successfully created!");
-        findAll(id).then((res: any) => {
-          setItemsList(res.data);
-        });
-      } else {
-        throw new Error();
-      }
-    } catch (error) {
-      toast.error("Error! Try Again...");
-    }
+  async function onCreate(values: any) {
+    await onSubmitCreate(values, id);
   }
-
-  async function onSubmitDelete(name: any) {
-    try {
-      const data = {
-        id: id,
-        name: name,
-      };
-
-      const { status } = await deleteLayer(data);
-      if (status === 200) {
-        toast.success("Successfully deleted!");
-        findAll(id).then((res: any) => {
-          setItemsList(res.data);
-        });
-      } else {
-        throw new Error();
-      }
-    } catch (error) {
-      toast.error("Cannot delete the Background!");
-    }
-  }
-
-  async function onSubmitEdit(e: any, name: any) {
-    try {
-      setDoubleClick(false);
-      const valor = e.target.value
-        ? e.target.value
-        : `New layer name ${itemsList?.length}`;
-      const data = {
-        id: id,
-        name: name,
-        value: valor,
-      };
-
-      const { status } = await editLayer(data);
-      if (status === 200) {
-        toast.success("Successfully edited!");
-        const { data } = await findAll(id);
-        setItemsList(data);
-      } else {
-        throw new Error();
-      }
-    } catch (error) {
-      toast.error("Cannot delete the Background!");
-    }
-  }
-
-  function handleKeyPress(event: any, name: any) {
-    if (event.key === "Enter") {
-      onSubmitEdit(event, name);
-    }
-  }
-
-  const clickHandler = (e: any, key: any) => {
-    setDoubleClick(false);
-    if (e.detail == 2) {
-      return setDoubleClick(true);
-    }
-    setKeyCheck(key);
-  };
-
-  function handleOnDragEnd(result: any) {
-    if (!result.destination) return;
-
-    const items: any = Array.from(itemsList);
-    const [reorderedItem] = items.splice(result.source.index, 1);
-    items.splice(result.destination.index, 0, reorderedItem);
-
-    setItemsList(items);
-  }
-
-  const handleSelectItem = (name1: never = name as never) => {
-    if (selectedItems.includes(name1)) {
-      setSelectedItems(
-        selectedItems.filter((selectedItem) => selectedItem !== name1)
-      );
-    } else {
-      setSelectedItems([...selectedItems, name1]);
-    }
-  };
 
   return (
     <Container className="bg-brand-primary w-[60%] h-[97%] border-r-[0.5rem] border-brand-primary p-2 py-4 pr-2 flex flex-col gap-4 overflow-y-scroll overflow-x-hidden scrollbar-thin scrollbar-thumb-brand-scroll scrollbar-track-rounded-lg scrollbar-thumb-rounded-lg">
       <form
-        onSubmit={handleSubmit(onSubmitCreate)}
+        onSubmit={handleSubmit(onCreate)}
         className="w-full flex items-center gap-4 h-12 z-10"
       >
         <Controller
@@ -169,12 +57,28 @@ export function FormTodo({ id, setPreviewFunction }: any) {
         </Button>
       </form>
 
-      {itemsList.length === 0 ? (
+      {layersOrder.length === 0 ? (
         <div className="w-full h-full flex justify-center items-centers mb-20">
           <Loading size="big" label="Loading categorys..." />
         </div>
       ) : (
-        <DragDropContext onDragEnd={handleOnDragEnd}>
+        <Reorder.Group axis="y" onReorder={setLayersOrder} values={layersOrder}>
+          {layersOrder.map((item, index) => (
+            <LayerItem
+              key={index}
+              item={item}
+              index={index}
+              keyCheck={keyCheck}
+              setKeyCheck={(e) => setKeyCheck(e)}
+            />
+          ))}
+        </Reorder.Group>
+      )}
+    </Container>
+  );
+}
+
+/* <DragDropContext onDragEnd={handleOnDragEnd}>
           <Droppable droppableId="categorys">
             {(provided) => (
               <ul
@@ -238,8 +142,4 @@ export function FormTodo({ id, setPreviewFunction }: any) {
               </ul>
             )}
           </Droppable>
-        </DragDropContext>
-      )}
-    </Container>
-  );
-}
+        </DragDropContext> */

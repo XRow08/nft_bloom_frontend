@@ -21,8 +21,7 @@ import { Preview } from "@/components/Preview";
 
 export default function CreateNFT() {
   const [preview, setPreview] = useState(false);
-  const [nameLayer, setNameLayer] = useState();
-  const [id, setId] = useState();
+  const [id, setId] = useState("");
 
   const handleChangeChk = (e: any) => {
     setPreview(e.target.checked);
@@ -33,7 +32,7 @@ export default function CreateNFT() {
     if (data) {
       setId(data.id);
     } else {
-      setId(undefined);
+      setId("");
     }
   }, [id]);
 
@@ -70,11 +69,8 @@ export default function CreateNFT() {
               />
               {!preview ? (
                 <div className="flex w-full h-[75.8%] gap-4">
-                  <FormTodo
-                    id={id}
-                    setPreviewFunction={(name: any) => setNameLayer(name)}
-                  />
-                  <InputImage nameLayer={nameLayer} id={id} />
+                  <FormTodo id={id} />
+                  <InputImage id={id} />
                 </div>
               ) : (
                 <Preview id={id} />

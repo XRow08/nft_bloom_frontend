@@ -3,6 +3,7 @@ import { ICreateLayer } from "./../interfaces/ICreateLayer";
 import { IDeleteLayer } from "./../interfaces/IDeleteLayer";
 import { Api } from "./Api";
 import { ICreateNFT } from "@/interfaces/ICreateNFT";
+import { ILayer } from "@/interfaces/ILayers";
 
 export function createLayer(data: ICreateLayer) {
   return Api.post("/nft/create-layer", data);
@@ -16,7 +17,7 @@ export function deleteLayer(data: IDeleteLayer) {
   return Api.post("/nft/delete-layer", data);
 }
 
-export function findAll(id: string) {
+export function findAll(id: string): Promise<{data: ILayer[] | number}> {
   return Api.get(`/nft/get-layers/${id}`);
 }
 

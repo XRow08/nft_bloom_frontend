@@ -7,7 +7,6 @@ type Props = {
   name?: string;
   placeholder?: string;
   errors?: any;
-  onChange?: VoidFunction;
   label1?: string;
   label2?: string;
 };
